@@ -10,6 +10,10 @@ export = (app: Probot) => {
 
   app.on("push", async (context) => {
     const gitignoreRequest = context.repo({path: ".gitignore"});
+
+    const contents = context.octokit.repos.getContent(gitignoreRequest);
+
+    context.log(contents);
   });
 
   app.on("check_suite.requested", async (context) => {
