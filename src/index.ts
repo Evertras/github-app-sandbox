@@ -9,10 +9,17 @@ export = (app: Probot) => {
   });
 
   app.on("push", async (context) => {
-    const gitignoreRequest = context.repo({path: ".gitignore"});
+    const gitignoreRequest = context.repo({path: ".my-ci.yaml"});
 
-    const contents = context.octokit.repos.getContent(gitignoreRequest);
+    const response = await context.octokit.repos.getContent(gitignoreRequest);
 
+    const data = response.data;
+
+    // TODO: https://github.com/octokit/types.ts/issues/56 is a little confusing
+    // but we should be able to avoid the 'any' here :/
+    const contents = Buffer.from((<any>data).content, "base64").toString("ascii");
+
+    // Print out the contents for now just to show that we got them
     context.log(contents);
   });
 

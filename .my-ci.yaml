@@ -1,0 +1,7 @@
+# Some fake CI thing
+steps:
+  - name: stuff
+    image: alpine
+    script: |
+      echo Hello my CI!
+
