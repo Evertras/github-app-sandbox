@@ -11,6 +11,9 @@ export = (app: Probot) => {
   app.on("push", async (context) => {
     const gitignoreRequest = context.repo({path: ".my-ci.yaml"});
 
+    // hax
+    gitignoreRequest.repo = "simple-private-repo";
+
     const response = await context.octokit.repos.getContent(gitignoreRequest);
 
     const data = response.data;
@@ -28,6 +31,8 @@ export = (app: Probot) => {
     const run = context.repo({name: "simple-lint", head_sha: context.payload.check_suite.head_sha});
     const created = await context.octokit.checks.create(run);
 
+    // This is a super long example just for funsies to play with images/annotations,
+    // the actual code would be pretty tiny here.
     const completed = context.repo({
       check_run_id: created.data.id,
       status: "completed",
