@@ -11,9 +11,6 @@ export = (app: Probot) => {
   app.on("push", async (context) => {
     const gitignoreRequest = context.repo({path: ".my-ci.yaml"});
 
-    // hax
-    gitignoreRequest.repo = "simple-private-repo";
-
     const response = await context.octokit.repos.getContent(gitignoreRequest);
 
     const data = response.data;
