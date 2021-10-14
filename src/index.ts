@@ -6,6 +6,14 @@ export = (app: Probot) => {
       body: "Hello from Everbot!  We got your issue, and we're now completely ignoring it.",
     });
     await context.octokit.issues.createComment(issueComment);
+
+    const issueLabel = context.issue({
+      labels: [
+        "ignored"
+      ],
+    });
+
+    await context.octokit.issues.addLabels(issueLabel);
   });
 
   app.on("push", async (context) => {
