@@ -3,7 +3,7 @@ import {Probot} from "probot";
 export = (app: Probot) => {
   app.on("issues.opened", async (context) => {
     const issueComment = context.issue({
-      body: "Thanks for opening this issue!",
+      body: "Hello from Everbot!  We got your issue, and we're now completely ignoring it.",
     });
     await context.octokit.issues.createComment(issueComment);
   });
@@ -24,7 +24,6 @@ export = (app: Probot) => {
   });
 
   app.on("check_suite.requested", async (context) => {
-    //context.log(JSON.stringify(context.payload, null, 2));
     const run = context.repo({name: "simple-lint", head_sha: context.payload.check_suite.head_sha});
     const created = await context.octokit.checks.create(run);
 
