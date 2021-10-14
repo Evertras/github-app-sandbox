@@ -1,6 +1,6 @@
 # sandbox-app
 
-> A GitHub App built with [Probot](https://github.com/probot/probot) that Simple sandbox app
+> A GitHub App built with [Probot](https://github.com/probot/probot)
 
 ## Setup
 
