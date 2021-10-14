@@ -44,13 +44,9 @@ export = (app: Probot) => {
       output: {
         title: "Lint Result",
         summary: `
-        # Overview
-
         Linting was fine!  But let's add an annotation somewhere to try it out.
 
-        ## What to do next
-
-        idk
+        Anyway here's a kitten.
         `,
         images: [
           {
