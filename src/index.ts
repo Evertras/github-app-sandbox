@@ -1,6 +1,7 @@
 import {Probot} from "probot";
 
 export = (app: Probot) => {
+  // Issue ignoring feature
   app.on("issues.opened", async (context) => {
     const issueComment = context.issue({
       body: "Hello from Everbot!  We got your issue, and we're now completely ignoring it.",
@@ -16,6 +17,7 @@ export = (app: Probot) => {
     await context.octokit.issues.addLabels(issueLabel);
   });
 
+  // Get a CI file feature
   app.on("push", async (context) => {
     const gitignoreRequest = context.repo({path: ".my-ci.yaml"});
 
@@ -31,6 +33,7 @@ export = (app: Probot) => {
     context.log(contents);
   });
 
+  // Run linting feature
   app.on("check_suite.requested", async (context) => {
     const run = context.repo({name: "simple-lint", head_sha: context.payload.check_suite.head_sha});
     const created = await context.octokit.checks.create(run);
@@ -70,10 +73,4 @@ export = (app: Probot) => {
 
     await context.octokit.checks.update(completed);
   });
-
-  // For more information on building apps:
-  // https://probot.github.io/docs/
-
-  // To get your app running against GitHub, see:
-  // https://probot.github.io/docs/development/
 };
